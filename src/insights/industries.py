@@ -10,9 +10,6 @@ def get_unique_industries(path: str) -> List[str]:
     return list(industries)
 
 
-print(read("data/jobs.csv"))
-
-
 def filter_by_industry(jobs: List[Dict], industry: str) -> List[Dict]:
     """Filters a list of jobs by industry
 
