@@ -2,7 +2,7 @@ from typing import List, Dict
 
 
 def get_unique_industries(path: str) -> List[str]:
-    """Checks all different industries and returns a list of them
+    """Checks all different industries and returns a list o f them
 
     Must call `read`
 
