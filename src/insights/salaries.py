@@ -20,26 +20,27 @@ def get_min_salary(path: str) -> int:
     return min(salaries)
 
 
-def validate_salary_min_and_max(job: Dict):
-    for obj in job:
-        min = obj["min_salary"]
-        max = obj["max_salary"]
-        if max is None or min is None:
-            raise ValueError("Erro de parametro")
-        if not max.isdigit() or not min.isdigit():
-            raise ValueError("Erro de parametro")
-        if min > max:
-            raise ValueError("Erro de parametro")
+def valida_salary_type(num: Union[int, str]) -> int:
+    if num is None:
+        raise ValueError("Erro de parametro")
+    if type(num) is not str and type(num) is not int:
+        raise ValueError("Erro de parametro")
+    if type(num) is str and not num.isdigit():
+        raise ValueError("Erro de parametro")
+    return int(num)
 
 
 def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool:
-    if not salary.isdigit():
+    if type(job) is not dict:
         raise ValueError("Erro de parametro")
-    validate_salary_min_and_max(job)
-    salary_min = get_min_salary("data/jobs.csv")
-    salary_max = get_max_salary("data/jobs.csv")
-
-    return salary_min < int(salary) < salary_max
+    if len(list(job.keys())) != 2:
+        raise ValueError("Erro de parametro")
+    sal = valida_salary_type(salary)
+    min = valida_salary_type(job["min_salary"])
+    max = valida_salary_type(job["max_salary"])
+    if min > max:
+        raise ValueError("Erro de parametro")
+    return min <= sal <= max
 
 
 def filter_by_salary_range(
