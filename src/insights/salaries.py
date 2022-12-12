@@ -51,11 +51,10 @@ def filter_by_salary_range(
 ) -> List[Dict]:
     filter_job = []
     for job in jobs:
-        min = job["min_salary"]
-        max = job["max_salary"]
-        if (valida_salary_type(min) and valida_salary_type(max)) and int(
-            max
-        ) > int(min):
-            if matches_salary_range(job, salary):
+        try:
+            verify = matches_salary_range(job, salary)
+            if verify:
                 filter_job.append(job)
+        except ValueError:
+            print("Valid Number, try again...")
     return filter_job
